@@ -1,0 +1,42 @@
+---
+dataset:
+    classes: 10
+generated:
+    path: 'D:\Projekt\tf_smoothing\generated'
+    colabpath: 'D:\Projekt\tf_smoothing\generated'
+    modelimg: 'D:\Projekt\tf_smoothing\generated\model.png'
+    graph_path: 'D:\Projekt\tf_smoothing\generated\graph.json'
+smoothing:
+  sigma: 0.25
+  N: 20
+  alpha: 0.001
+train:
+    optimizer: "adam"
+    learning_rate: 0.001
+    batch_size: 16
+    buffer: 8
+    use_multiprocessing: True
+    weight_initialization:
+      use_pretrained: False
+      restore_from: 'D:\Projekt\tf_smoothing\generated\last.h5'
+    output:
+      weight: 'D:\Projekt\tf_smoothing\generated\weights.h5'
+    callbacks:
+        earlystop:
+          use: True
+          patience: 10
+        tensorboard:
+          use: True
+          path: 'D:\Projekt\tf_smoothing\generated\logs'
+        checkpoint:
+          last_checkpoint:
+            use: True
+            path: 'D:\Projekt\tf_smoothing\generated\last.h5'
+          best_checkpoint:
+            use: True
+            path: 'D:\Projekt\tf_smoothing\generated\best.h5'
+        scheduler:
+          reducelr:
+            use: True
+            factor: 0.5
+            patience: 5
